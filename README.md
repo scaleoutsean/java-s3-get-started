@@ -9,6 +9,7 @@
     - [Code structure](#code-structure)
     - [ONTAP API](#ontap-api)
   - [Credits and copyright](#credits-and-copyright)
+  - [Screenshot](#screenshot)
 
 
 # S3 Console Demo App
@@ -51,7 +52,7 @@ Edit `src/main/java/org/example/DependencyFactory.java`:
 Edit `src/main/java/org/example/Handler.java`:
 
 - line 32: bucket name (it must exist on the ONTAP SVM and be accessible to those credentials above)
-- line 33: key (object name on S3, maybe leave it unchanged at first)
+- line 33: key (object name on S3, please create a random name that will not collide with any other bucket)
 - line 34: path to file (or you may leave it as is and just create a file in that location; /tmp/ontap-s3-test.txt)
 
 ```java
@@ -63,6 +64,8 @@ Edit `src/main/java/org/example/Handler.java`:
 ```
 
 ### Build and run
+
+**WARNING**: application **deletes all objects** from the specified bucket (default: "native")!
 
 Build from repo's root director and run with `java`:
 
@@ -247,3 +250,7 @@ For other methods and various ONTAP versions, please see [here](https://docs.net
 - [AWS Documentation for SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html)
 - AWS code examples are [licensed](https://github.com/awsdocs/aws-doc-sdk-examples) under the Apache 2.0 license
 - Changes to the code and this README file are licensed under the same license (Apache 2.0)
+
+## Screenshot
+
+![Application Screenshot](screenshot.png)
