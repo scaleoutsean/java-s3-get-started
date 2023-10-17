@@ -65,16 +65,16 @@ Edit `src/main/java/org/example/Handler.java`:
 
 ### Build and run
 
-**WARNING**: application **deletes all objects** from the specified bucket (default: "native")!
+**WARNING**: application automatically **deletes all objects** from the specified bucket (default: "native")!
 
-Build from repo's root director and run with `java`:
+Build from repo's root directory and run with `java`:
 
 ```sh
 mvn clean package
 java -jar target/getstarted-1.0-SNAPSHOT-jar-with-dependencies.jar 
 ```
 
-Output with ONTAP S3 (ONTAP v9.12.1):
+Output with ONTAP S3 (ONTAP v9.12.1) API endpoint:
 
 ```sh
 $ java -jar target/getstarted-1.0-SNAPSHOT-jar-with-dependencies.jar 
