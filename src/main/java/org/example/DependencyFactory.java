@@ -22,24 +22,27 @@ public class DependencyFactory {
     /**
      * @return an instance of S3Client
      */
+
+    private static final String AWS_ACCESS_KEY_ID = System.getenv("AWS_ACCESS_KEY_ID");
+    private static final String AWS_SECRET_KEY = System.getenv("AWS_SECRET_KEY");
+    private static final String ENDPOINT_URI = System.getenv("AWS_ENDPOINT_URI");
+    
     public static S3Client s3Client() {
-        URI myURI = null;
-        try {
-            myURI = new URI("https://s3.example.org");
-        } catch(Exception e) {}
+        URI AWS_ENDPOINT_URI = URI.create(ENDPOINT_URI);
+        if (AWS_ENDPOINT_URI == null) {
+            try {
+                AWS_ENDPOINT_URI = new URI("https://192.168.1.52");
+            } catch(Exception e) {}
+        }
 
         Region region = Region.US_EAST_1;
-        AwsCredentials creds = AwsBasicCredentials.create("AAAAAAAAAAAAAAAAA", "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+        AwsCredentials creds = AwsBasicCredentials.create(AWS_ACCESS_KEY_ID, AWS_SECRET_KEY);
         AwsCredentialsProvider awsCreds = StaticCredentialsProvider.create(creds);
 
         return S3Client.builder()
                         .region(region)
                         .credentialsProvider(awsCreds)
-                        .endpointOverride(myURI)
+                        .endpointOverride(AWS_ENDPOINT_URI)
                         .build();
-
-        // return S3Client.builder()
-                       // .httpClientBuilder(ApacheHttpClient.builder())
-                       // .build();
     }
 }

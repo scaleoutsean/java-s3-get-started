@@ -33,19 +33,15 @@ You need to edit the following files and build from the source.
 
 ### S3 Credentials
 
-Edit `src/main/java/org/example/DependencyFactory.java`:
+Set environmental variables. Example for Linux:
 
-- line 28: S3 API endpoint, HTTP or HTTPS, IP or FQDN. On ONTAP, that's ONTAP S3 SVM Data LIF.
-- line 32: AWS credentials
-
-```java
-    try {
-        myURI = new URI("https://192.168.222.222");
-    } catch(Exception e) {}
-    Region region = Region.US_EAST_1;
-    AwsCredentials creds = AwsBasicCredentials.create("XXXXXXXXXXXXXXX", "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
-    AwsCredentialsProvider awsCreds = StaticCredentialsProvider.create(creds);
+```sh
+export AWS_ACCESS_KEY_ID="AAAAAAAAAAAAAAAAAAA"
+export AWS_SECRET_KEY="BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"
+export AWS_ENDPOINT_URI="https://192.168.1.52:443"
 ```
+
+An [older version](https://github.com/scaleoutsean/java-s3-get-started/tree/eb1b21442bb762095f60257c674f4e15209c2190) has these hard-coded, which is convenient, but bad security-wise. 
 
 ### S3 bucket, key and file path
 
@@ -63,9 +59,15 @@ Edit `src/main/java/org/example/Handler.java`:
         String objectPath = "/tmp/ontap-s3-test.txt";
 ```
 
+To test with this README.md, Linux users can do this. 
+
+```sh
+cp README.md /tmp/ontap-s3-test.txt 
+```
+
 ### Build and run
 
-**WARNING**: application automatically **deletes all objects** from the specified bucket (default: "native")!
+**WARNING**: application automatically **deletes the uploaded object** from the specified bucket (default bucket name: "native"). Other objects - if any - should remain.
 
 Build from repo's root directory and run with `java`:
 
@@ -242,6 +244,8 @@ For example, to create [S3 bucket](https://library.netapp.com/ecmdocs/ECMLP28848
   }
 }
 ```
+
+As you can see there are many parameters that go into that call, so it's not totally trivial. 
 
 For other methods and various ONTAP versions, please see [here](https://docs.netapp.com/us-en/ontap-automation/reference/api_reference.html#access-the-ontap-api-documentation-page).
 
